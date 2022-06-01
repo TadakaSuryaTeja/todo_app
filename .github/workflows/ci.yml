@@ -33,7 +33,7 @@ jobs:
     - name: Run flake8
       run: flake8
     - name: Run Pylint
-      run: pylint  todolist todoproject
+      run: pylint todolist todoproject
     - name: Run Mypy
       run: mypy todolist todoproject
     - name: tests
