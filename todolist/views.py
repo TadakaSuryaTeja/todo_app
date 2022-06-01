@@ -8,9 +8,6 @@ from .forms import TodoListForm
 
 
 def index(request):
-    """
-    Rendering Index page
-    """
     todo_items = Todolist.objects.order_by("id")
     form = TodoListForm()
     context = {"todo_items": todo_items, "form": form}
@@ -19,9 +16,6 @@ def index(request):
 
 @require_POST
 def add_todo(request):
-    """
-    add to do post request
-    """
     form = TodoListForm(request.POST)
     if form.is_valid():
         new_todo = Todolist(text=request.POST["text"])
@@ -31,10 +25,6 @@ def add_todo(request):
 
 
 def completed_todo(request, todo_id):
-    """
-    Completed to do function
-    returns: redirect to index page
-    """
     todo = Todolist.objects.get(pk=todo_id)
     todo.completed = True
     todo.save()
@@ -43,18 +33,10 @@ def completed_todo(request, todo_id):
 
 
 def delete_completed(request):
-    """
-    deletes the completed task and redirects to index
-    returns: redirect to index home page
-    """
     Todolist.objects.filter(completed__exact=True).delete()
     return redirect("index")
 
 
 def delete_all(request):
-    """
-    deletes all tasks and redirects to index
-    returns: redirects to index homepage
-    """
     Todolist.objects.all().delete()
     return redirect("index")
